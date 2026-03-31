@@ -1,115 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Anurag Yadav — Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;800;900&family=Lato:wght@300;400;700&family=Georgia:wght@400;700&display=swap"
+    rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
 
+  <!-- noise texture overlay for visual depth -->
+  <div id="noise-overlay"></div>
+
   <!-- ══════════════════════════════════
-       INTRO OVERLAY
+       PROFESSIONAL INTRO SCREEN
   ══════════════════════════════════ -->
-  <div id="intro">
-    <canvas id="intro-canvas"></canvas>
-    <div class="intro-hud">
-      <div class="hud-line hud-tl">
-        <span class="hud-label">SYSTEM</span>
-        <span class="hud-val" id="hud-sys">INITIALIZING...</span>
+  <div id="prof-intro">
+    <div class="prof-intro-content">
+      <div class="prof-brand">
+        <span class="prof-name">Anurag Yadav</span>
+        <span class="prof-dot"></span>
       </div>
-      <div class="hud-line hud-tr">
-        <span class="hud-label">STATUS</span>
-        <span class="hud-val blink-text">CLASSIFIED</span>
-      </div>
-      <div class="hud-line hud-bl">
-        <span class="hud-label">UNIT</span>
-        <span class="hud-val">B-2 SPIRIT ✦ STEALTH</span>
-      </div>
-      <div class="hud-line hud-br">
-        <span class="hud-label">LOADING</span>
-        <span class="hud-val" id="hud-pct">0%</span>
+      <div class="prof-role">Portfolio 2026</div>
+      <div class="prof-loader">
+        <div class="prof-progress" id="prof-progress"></div>
       </div>
     </div>
-    <div class="intro-center">
-      <div class="intro-name" id="intro-name">ANURAG YADAV</div>
-      <div class="intro-sub" id="intro-sub">ENGINEER · BUILDER · RESEARCHER</div>
-      <div class="intro-bar-wrap"><div class="intro-bar" id="intro-bar"></div></div>
-    </div>
-    <div class="scan-line"></div>
   </div>
-
-  <!-- ══════════════════════════════════
-       CURSORS
-  ══════════════════════════════════ -->
-  <div id="cur-dot"></div>
-  <div id="cur-ring"></div>
-  <div id="cur-label"></div>
-
-  <!-- ══════════════════════════════════
-       PARTICLE BG
-  ══════════════════════════════════ -->
-  <canvas id="bg-canvas"></canvas>
-
-  <!-- ══════════════════════════════════
-       SIDE NAV
-  ══════════════════════════════════ -->
-  <nav id="sidenav">
-    <div class="sn-logo">AY·DEV</div>
-    <div class="sn-links">
-      <a class="sn-link active" href="#hero" data-sec="hero" data-label="HOME">
-        <div class="sn-pip"></div>
-        <svg viewBox="0 0 24 24"><path d="M3 12L12 3l9 9M5 10v9a1 1 0 001 1h4v-5h4v5h4a1 1 0 001-1v-9"/></svg>
-        <span>Home</span>
-      </a>
-      <a class="sn-link" href="#about" data-sec="about" data-label="ABOUT">
-        <div class="sn-pip"></div>
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-        <span>About</span>
-      </a>
-      <a class="sn-link" href="#skills" data-sec="skills" data-label="SKILLS">
-        <div class="sn-pip"></div>
-        <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-        <span>Skills</span>
-      </a>
-      <a class="sn-link" href="#experience" data-sec="experience" data-label="WORK">
-        <div class="sn-pip"></div>
-        <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>
-        <span>Work</span>
-      </a>
-      <a class="sn-link" href="#projects" data-sec="projects" data-label="BUILD">
-        <div class="sn-pip"></div>
-        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-        <span>Build</span>
-      </a>
-      <a class="sn-link" href="#contact" data-sec="contact" data-label="CONTACT">
-        <div class="sn-pip"></div>
-        <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-        <span>Contact</span>
-      </a>
-    </div>
-    <div class="sn-socials">
-      <a href="https://github.com/Anuragsiy-1" target="_blank" title="GitHub">
-        <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
-      </a>
-      <a href="https://www.linkedin.com/in/anurag-yadav-87755a275" target="_blank" title="LinkedIn">
-        <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-      </a>
-      <a href="https://instagram.com/anuragsiy" target="_blank" title="Instagram">
-        <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-      </a>
-      <a href="mailto:iamanuragsiy@gmail.com" title="Email">
-        <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-      </a>
-    </div>
-  </nav>
 
   <!-- ══════════════════════════════════
        MAIN CONTENT
   ══════════════════════════════════ -->
+
+  <!-- Classic Navigation -->
+  <header class="classic-header">
+    <div class="header-content">
+      <div class="logo">Anurag Yadav</div>
+      <nav class="main-nav">
+        <a href="#hero" class="nav-link active">Home</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#skills" class="nav-link">Skills</a>
+        <a href="#experience" class="nav-link">Experience</a>
+        <a href="#projects" class="nav-link">Projects</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </nav>
+    </div>
+  </header>
+
   <div id="wrap">
 
     <!-- TOP BAR -->
@@ -128,7 +71,9 @@
           <span>IIMT · Greater Noida</span><span>@anuragsiy</span>
         </div>
       </div>
-      <div class="tb-status"><div class="tb-blink"></div>Open to Opportunities</div>
+      <div class="tb-status">
+        <div class="tb-blink"></div>Open to Opportunities
+      </div>
     </div>
 
     <!-- ════════════════════ HERO ════════════════════ -->
@@ -183,21 +128,38 @@
 
     <!-- ════════════════════ ABOUT ════════════════════ -->
     <section id="about" class="sec">
-      <div class="sec-tag reveal">About Me</div>
-      <h2 class="sec-h reveal">Engineering with <em>purpose</em></h2>
+      <div class="sec-tag">About Me</div>
+      <h2 class="sec-h">Engineering with <em>purpose</em></h2>
       <div class="about-grid">
-        <div class="about-copy reveal">
-          <p>I'm Anurag Yadav — a B.Tech IT student at IIMT College of Engineering, Greater Noida. I build things with Java, Python, and JavaScript, and I'm deeply passionate about machine learning and how algorithms can decode human behaviour.</p>
-          <p>From training emotion recognition models using convolutional networks to hands-on digital forensics and incident response, I thrive on complex problems that demand clean, efficient solutions. My work sits at the intersection of AI, security, and software engineering.</p>
-          <p>Languages: English &amp; Hindi · Always learning, always building. Find me on Instagram <a href="https://instagram.com/anuragsiy" class="inline-link" target="_blank">@anuragsiy</a>.</p>
+        <div class="about-copy">
+          <p>I'm Anurag Yadav — a B.Tech IT student at IIMT College of Engineering, Greater Noida. I build things with
+            Java, Python, and JavaScript, and I'm deeply passionate about machine learning and how algorithms can decode
+            human behaviour.</p>
+          <p>From training emotion recognition models using convolutional networks to hands-on digital forensics and
+            incident response, I thrive on complex problems that demand clean, efficient solutions. My work sits at the
+            intersection of AI, security, and software engineering.</p>
+          <p>Languages: English &amp; Hindi · Always learning, always building. Find me on Instagram <a
+              href="https://instagram.com/anuragsiy" class="inline-link" target="_blank">@anuragsiy</a>.</p>
           <div class="about-stats">
-            <div class="astat" data-label="TECH"><div class="astat-n">7+</div><div class="astat-l">Technologies</div></div>
-            <div class="astat" data-label="PAPER"><div class="astat-n">1</div><div class="astat-l">Research Paper</div></div>
-            <div class="astat" data-label="CERTS"><div class="astat-n">2</div><div class="astat-l">Certificates</div></div>
-            <div class="astat" data-label="EXP"><div class="astat-n">4mo</div><div class="astat-l">Experience</div></div>
+            <div class="astat" data-label="TECH">
+              <div class="astat-n">7+</div>
+              <div class="astat-l">Technologies</div>
+            </div>
+            <div class="astat" data-label="PAPER">
+              <div class="astat-n">1</div>
+              <div class="astat-l">Research Paper</div>
+            </div>
+            <div class="astat" data-label="CERTS">
+              <div class="astat-n">3</div>
+              <div class="astat-l">Certificates</div>
+            </div>
+            <div class="astat" data-label="EXP">
+              <div class="astat-n">4mo</div>
+              <div class="astat-l">Experience</div>
+            </div>
           </div>
         </div>
-        <div class="about-cards reveal" style="transition-delay:.22s">
+        <div class="about-cards" style="transition-delay:.22s">
           <div class="acard" data-label="ML">
             <div class="acard-ico">🧠</div>
             <div class="acard-t">Machine Learning</div>
@@ -219,53 +181,329 @@
 
     <!-- ════════════════════ SKILLS ════════════════════ -->
     <section id="skills" class="sec">
-      <div class="sec-tag reveal">Skills &amp; Arsenal</div>
-      <h2 class="sec-h reveal">What I <em>build with</em></h2>
-      <div class="skills-layout reveal" style="transition-delay:.15s">
+      <div class="sec-tag">Skills &amp; Arsenal</div>
+      <h2 class="sec-h">What I <em>build with</em></h2>
+      <div class="skills-layout" style="transition-delay:.15s">
         <div class="skill-tabs">
-          <div class="sk-tab on"  data-panel="prog">      <div class="sk-tab-pip"></div><span>Programming</span></div>
-          <div class="sk-tab"     data-panel="frameworks"><div class="sk-tab-pip"></div><span>Frameworks</span></div>
-          <div class="sk-tab"     data-panel="ml">        <div class="sk-tab-pip"></div><span>Machine Learning</span></div>
-          <div class="sk-tab"     data-panel="data">      <div class="sk-tab-pip"></div><span>Data Science</span></div>
-          <div class="sk-tab"     data-panel="dsa">       <div class="sk-tab-pip"></div><span>DSA &amp; Algorithms</span></div>
-          <div class="sk-tab"     data-panel="sec">       <div class="sk-tab-pip"></div><span>Security</span></div>
+          <div class="sk-tab on" data-panel="prog">
+            <div class="sk-tab-pip"></div><span>Programming</span>
+          </div>
+          <div class="sk-tab" data-panel="frameworks">
+            <div class="sk-tab-pip"></div><span>Frameworks</span>
+          </div>
+          <div class="sk-tab" data-panel="ml">
+            <div class="sk-tab-pip"></div><span>Machine Learning</span>
+          </div>
+          <div class="sk-tab" data-panel="data">
+            <div class="sk-tab-pip"></div><span>Data Science</span>
+          </div>
+          <div class="sk-tab" data-panel="dsa">
+            <div class="sk-tab-pip"></div><span>DSA &amp; Algorithms</span>
+          </div>
+          <div class="sk-tab" data-panel="sec">
+            <div class="sk-tab-pip"></div><span>Security</span>
+          </div>
         </div>
         <div class="skill-panels-wrap">
           <div class="skill-panel on" id="panel-prog">
-            <div class="skcard" data-label="JAVA">    <div class="skcard-ico">☕</div><div class="skcard-n">Java</div>        <div class="sk-bars"><div class="sk-bar f"></div><div class="sk-bar f"></div><div class="sk-bar f"></div><div class="sk-bar f"></div><div class="sk-bar"></div></div><div class="skcard-d">Core backend language with strong OOP fundamentals and Spring ecosystem.</div></div>
-            <div class="skcard" data-label="PYTHON">  <div class="skcard-ico">🐍</div><div class="skcard-n">Python</div>      <div class="sk-bars"><div class="sk-bar f"></div><div class="sk-bar f"></div><div class="sk-bar f"></div><div class="sk-bar f"></div><div class="sk-bar f"></div></div><div class="skcard-d">Primary language for ML pipelines, scripting, and data processing.</div></div>
-            <div class="skcard" data-label="JS">      <div class="skcard-ico">🌐</div><div class="skcard-n">JavaScript</div>  <div class="sk-bars"><div class="sk-bar f"></div><div class="sk-bar f"></div><div class="sk-bar f"></div><div class="sk-bar"></div><div class="sk-bar"></div></div><div class="skcard-d">Frontend interactivity and Node.js server-side development.</div></div>
-            <div class="skcard" data-label="HTML/CSS"> <div class="skcard-ico">🏗️</div><div class="skcard-n">HTML &amp; CSS</div><div class="sk-bars"><div class="sk-bar f"></div><div class="sk-bar f"></div><div class="sk-bar f"></div><div class="sk-bar f"></div><div class="sk-bar"></div></div><div class="skcard-d">Semantic markup and modern responsive, accessible styling.</div></div>
-            <div class="skcard" data-label="MYSQL">   <div class="skcard-ico">🗄️</div><div class="skcard-n">MySQL</div>       <div class="sk-bars"><div class="sk-bar f"></div><div class="sk-bar f"></div><div class="sk-bar f"></div><div class="sk-bar"></div><div class="sk-bar"></div></div><div class="skcard-d">Relational database design, optimised querying, and schema management.</div></div>
+            <div class="skcard" data-label="JAVA">
+              <div class="skcard-ico">☕</div>
+              <div class="skcard-n">Java</div>
+              <div class="sk-bars">
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+                <div class="sk-bar"></div>
+              </div>
+              <div class="skcard-d">Core backend language with strong OOP fundamentals and Spring ecosystem.</div>
+            </div>
+            <div class="skcard" data-label="PYTHON">
+              <div class="skcard-ico">🐍</div>
+              <div class="skcard-n">Python</div>
+              <div class="sk-bars">
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+              </div>
+              <div class="skcard-d">Primary language for ML pipelines, scripting, and data processing.</div>
+            </div>
+            <div class="skcard" data-label="JS">
+              <div class="skcard-ico">🌐</div>
+              <div class="skcard-n">JavaScript</div>
+              <div class="sk-bars">
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+                <div class="sk-bar"></div>
+                <div class="sk-bar"></div>
+              </div>
+              <div class="skcard-d">Frontend interactivity and Node.js server-side development.</div>
+            </div>
+            <div class="skcard" data-label="HTML/CSS">
+              <div class="skcard-ico">🏗️</div>
+              <div class="skcard-n">HTML &amp; CSS</div>
+              <div class="sk-bars">
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+                <div class="sk-bar"></div>
+              </div>
+              <div class="skcard-d">Semantic markup and modern responsive, accessible styling.</div>
+            </div>
+            <div class="skcard" data-label="MYSQL">
+              <div class="skcard-ico">🗄️</div>
+              <div class="skcard-n">MySQL</div>
+              <div class="sk-bars">
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+                <div class="sk-bar"></div>
+                <div class="sk-bar"></div>
+              </div>
+              <div class="skcard-d">Relational database design, optimised querying, and schema management.</div>
+            </div>
           </div>
           <div class="skill-panel" id="panel-frameworks">
-            <div class="skcard" data-label="SPRING">  <div class="skcard-ico">🚀</div><div class="skcard-n">SpringBoot</div>  <div class="sk-bars"><div class="sk-bar f"></div><div class="sk-bar f"></div><div class="sk-bar f"></div><div class="sk-bar"></div><div class="sk-bar"></div></div><div class="skcard-d">Java backend framework for REST APIs and microservices architecture.</div></div>
-            <div class="skcard" data-label="REACT">   <div class="skcard-ico">⚛️</div><div class="skcard-n">React</div>       <div class="sk-bars"><div class="sk-bar f"></div><div class="sk-bar f"></div><div class="sk-bar f"></div><div class="sk-bar"></div><div class="sk-bar"></div></div><div class="skcard-d">Component-based UIs with hooks, state management and routing.</div></div>
-            <div class="skcard" data-label="NODE">    <div class="skcard-ico">🟢</div><div class="skcard-n">Node.js</div>     <div class="sk-bars"><div class="sk-bar f"></div><div class="sk-bar f"></div><div class="sk-bar f"></div><div class="sk-bar"></div><div class="sk-bar"></div></div><div class="skcard-d">Server-side JavaScript runtime for APIs and real-time features.</div></div>
-            <div class="skcard" data-label="FIGMA">   <div class="skcard-ico">🎨</div><div class="skcard-n">Figma</div>       <div class="sk-bars"><div class="sk-bar f"></div><div class="sk-bar f"></div><div class="sk-bar"></div><div class="sk-bar"></div><div class="sk-bar"></div></div><div class="skcard-d">UI/UX prototyping, wireframing, and design system creation.</div></div>
+            <div class="skcard" data-label="SPRING">
+              <div class="skcard-ico">🚀</div>
+              <div class="skcard-n">SpringBoot</div>
+              <div class="sk-bars">
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+                <div class="sk-bar"></div>
+                <div class="sk-bar"></div>
+              </div>
+              <div class="skcard-d">Java backend framework for REST APIs and microservices architecture.</div>
+            </div>
+            <div class="skcard" data-label="REACT">
+              <div class="skcard-ico">⚛️</div>
+              <div class="skcard-n">React</div>
+              <div class="sk-bars">
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+                <div class="sk-bar"></div>
+                <div class="sk-bar"></div>
+              </div>
+              <div class="skcard-d">Component-based UIs with hooks, state management and routing.</div>
+            </div>
+            <div class="skcard" data-label="NODE">
+              <div class="skcard-ico">🟢</div>
+              <div class="skcard-n">Node.js</div>
+              <div class="sk-bars">
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+                <div class="sk-bar"></div>
+                <div class="sk-bar"></div>
+              </div>
+              <div class="skcard-d">Server-side JavaScript runtime for APIs and real-time features.</div>
+            </div>
+            <div class="skcard" data-label="FIGMA">
+              <div class="skcard-ico">🎨</div>
+              <div class="skcard-n">Figma</div>
+              <div class="sk-bars">
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+                <div class="sk-bar"></div>
+                <div class="sk-bar"></div>
+                <div class="sk-bar"></div>
+              </div>
+              <div class="skcard-d">UI/UX prototyping, wireframing, and design system creation.</div>
+            </div>
           </div>
           <div class="skill-panel" id="panel-ml">
-            <div class="skcard" data-label="ML"><div class="skcard-ico">🤖</div><div class="skcard-n">Supervised ML</div><div class="sk-bars"><div class="sk-bar f"></div><div class="sk-bar f"></div><div class="sk-bar f"></div><div class="sk-bar f"></div><div class="sk-bar"></div></div><div class="skcard-d">Classification, regression, decision trees, ensemble models.</div></div>
-            <div class="skcard" data-label="CNN"><div class="skcard-ico">👁️</div><div class="skcard-n">CNN</div><div class="sk-bars"><div class="sk-bar f"></div><div class="sk-bar f"></div><div class="sk-bar f"></div><div class="sk-bar f"></div><div class="sk-bar"></div></div><div class="skcard-d">Convolutional networks for image recognition and computer vision.</div></div>
-            <div class="skcard" data-label="LSTM"><div class="skcard-ico">🔄</div><div class="skcard-n">LSTM / RNN</div><div class="sk-bars"><div class="sk-bar f"></div><div class="sk-bar f"></div><div class="sk-bar f"></div><div class="sk-bar"></div><div class="sk-bar"></div></div><div class="skcard-d">Sequence modelling, time-series forecasting, and memory networks.</div></div>
-            <div class="skcard" data-label="BERT"><div class="skcard-ico">⚡</div><div class="skcard-n">Transformers</div><div class="sk-bars"><div class="sk-bar f"></div><div class="sk-bar f"></div><div class="sk-bar f"></div><div class="sk-bar"></div><div class="sk-bar"></div></div><div class="skcard-d">BERT, GPT architectures for language understanding and generation.</div></div>
-            <div class="skcard" data-label="NLP"><div class="skcard-ico">💬</div><div class="skcard-n">NLP</div><div class="sk-bars"><div class="sk-bar f"></div><div class="sk-bar f"></div><div class="sk-bar f"></div><div class="sk-bar"></div><div class="sk-bar"></div></div><div class="skcard-d">Text preprocessing, sentiment analysis, and language model fine-tuning.</div></div>
+            <div class="skcard" data-label="ML">
+              <div class="skcard-ico">🤖</div>
+              <div class="skcard-n">Supervised ML</div>
+              <div class="sk-bars">
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+                <div class="sk-bar"></div>
+              </div>
+              <div class="skcard-d">Classification, regression, decision trees, ensemble models.</div>
+            </div>
+            <div class="skcard" data-label="CNN">
+              <div class="skcard-ico">👁️</div>
+              <div class="skcard-n">CNN</div>
+              <div class="sk-bars">
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+                <div class="sk-bar"></div>
+              </div>
+              <div class="skcard-d">Convolutional networks for image recognition and computer vision.</div>
+            </div>
+            <div class="skcard" data-label="LSTM">
+              <div class="skcard-ico">🔄</div>
+              <div class="skcard-n">LSTM / RNN</div>
+              <div class="sk-bars">
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+                <div class="sk-bar"></div>
+                <div class="sk-bar"></div>
+              </div>
+              <div class="skcard-d">Sequence modelling, time-series forecasting, and memory networks.</div>
+            </div>
+            <div class="skcard" data-label="BERT">
+              <div class="skcard-ico">⚡</div>
+              <div class="skcard-n">Transformers</div>
+              <div class="sk-bars">
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+                <div class="sk-bar"></div>
+                <div class="sk-bar"></div>
+              </div>
+              <div class="skcard-d">BERT, GPT architectures for language understanding and generation.</div>
+            </div>
+            <div class="skcard" data-label="NLP">
+              <div class="skcard-ico">💬</div>
+              <div class="skcard-n">NLP</div>
+              <div class="sk-bars">
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+                <div class="sk-bar"></div>
+                <div class="sk-bar"></div>
+              </div>
+              <div class="skcard-d">Text preprocessing, sentiment analysis, and language model fine-tuning.</div>
+            </div>
           </div>
           <div class="skill-panel" id="panel-data">
-            <div class="skcard" data-label="FE"><div class="skcard-ico">🔧</div><div class="skcard-n">Feature Engineering</div><div class="sk-bars"><div class="sk-bar f"></div><div class="sk-bar f"></div><div class="sk-bar f"></div><div class="sk-bar f"></div><div class="sk-bar"></div></div><div class="skcard-d">Data transformation, scaling, and feature selection pipelines.</div></div>
-            <div class="skcard" data-label="TS"><div class="skcard-ico">📈</div><div class="skcard-n">Time-Series</div><div class="sk-bars"><div class="sk-bar f"></div><div class="sk-bar f"></div><div class="sk-bar f"></div><div class="sk-bar"></div><div class="sk-bar"></div></div><div class="skcard-d">Forecasting, trend analysis, seasonality decomposition.</div></div>
-            <div class="skcard" data-label="REC"><div class="skcard-ico">🎯</div><div class="skcard-n">Recommendation</div><div class="sk-bars"><div class="sk-bar f"></div><div class="sk-bar f"></div><div class="sk-bar f"></div><div class="sk-bar"></div><div class="sk-bar"></div></div><div class="skcard-d">Collaborative and content-based filtering systems.</div></div>
-            <div class="skcard" data-label="SA"><div class="skcard-ico">😊</div><div class="skcard-n">Sentiment Analysis</div><div class="sk-bars"><div class="sk-bar f"></div><div class="sk-bar f"></div><div class="sk-bar f"></div><div class="sk-bar f"></div><div class="sk-bar"></div></div><div class="skcard-d">Opinion mining and emotion detection from unstructured text.</div></div>
+            <div class="skcard" data-label="FE">
+              <div class="skcard-ico">🔧</div>
+              <div class="skcard-n">Feature Engineering</div>
+              <div class="sk-bars">
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+                <div class="sk-bar"></div>
+              </div>
+              <div class="skcard-d">Data transformation, scaling, and feature selection pipelines.</div>
+            </div>
+            <div class="skcard" data-label="TS">
+              <div class="skcard-ico">📈</div>
+              <div class="skcard-n">Time-Series</div>
+              <div class="sk-bars">
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+                <div class="sk-bar"></div>
+                <div class="sk-bar"></div>
+              </div>
+              <div class="skcard-d">Forecasting, trend analysis, seasonality decomposition.</div>
+            </div>
+            <div class="skcard" data-label="REC">
+              <div class="skcard-ico">🎯</div>
+              <div class="skcard-n">Recommendation</div>
+              <div class="sk-bars">
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+                <div class="sk-bar"></div>
+                <div class="sk-bar"></div>
+              </div>
+              <div class="skcard-d">Collaborative and content-based filtering systems.</div>
+            </div>
+            <div class="skcard" data-label="SA">
+              <div class="skcard-ico">😊</div>
+              <div class="skcard-n">Sentiment Analysis</div>
+              <div class="sk-bars">
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+                <div class="sk-bar"></div>
+              </div>
+              <div class="skcard-d">Opinion mining and emotion detection from unstructured text.</div>
+            </div>
           </div>
           <div class="skill-panel" id="panel-dsa">
-            <div class="skcard" data-label="DS"><div class="skcard-ico">🌳</div><div class="skcard-n">Data Structures</div><div class="sk-bars"><div class="sk-bar f"></div><div class="sk-bar f"></div><div class="sk-bar f"></div><div class="sk-bar f"></div><div class="sk-bar"></div></div><div class="skcard-d">Trees, graphs, hash maps, heaps, stacks, queues, linked lists.</div></div>
-            <div class="skcard" data-label="ALGO"><div class="skcard-ico">⚡</div><div class="skcard-n">Algorithms</div><div class="sk-bars"><div class="sk-bar f"></div><div class="sk-bar f"></div><div class="sk-bar f"></div><div class="sk-bar f"></div><div class="sk-bar"></div></div><div class="skcard-d">Sorting, searching, dynamic programming, greedy, divide &amp; conquer.</div></div>
-            <div class="skcard" data-label="PS"><div class="skcard-ico">🎯</div><div class="skcard-n">Problem Solving</div><div class="sk-bars"><div class="sk-bar f"></div><div class="sk-bar f"></div><div class="sk-bar f"></div><div class="sk-bar f"></div><div class="sk-bar"></div></div><div class="skcard-d">Competitive-style algorithmic thinking and performance optimisation.</div></div>
+            <div class="skcard" data-label="DS">
+              <div class="skcard-ico">🌳</div>
+              <div class="skcard-n">Data Structures</div>
+              <div class="sk-bars">
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+                <div class="sk-bar"></div>
+              </div>
+              <div class="skcard-d">Trees, graphs, hash maps, heaps, stacks, queues, linked lists.</div>
+            </div>
+            <div class="skcard" data-label="ALGO">
+              <div class="skcard-ico">⚡</div>
+              <div class="skcard-n">Algorithms</div>
+              <div class="sk-bars">
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+                <div class="sk-bar"></div>
+              </div>
+              <div class="skcard-d">Sorting, searching, dynamic programming, greedy, divide &amp; conquer.</div>
+            </div>
+            <div class="skcard" data-label="PS">
+              <div class="skcard-ico">🎯</div>
+              <div class="skcard-n">Problem Solving</div>
+              <div class="sk-bars">
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+                <div class="sk-bar"></div>
+              </div>
+              <div class="skcard-d">Competitive-style algorithmic thinking and performance optimisation.</div>
+            </div>
           </div>
           <div class="skill-panel" id="panel-sec">
-            <div class="skcard" data-label="FOR"><div class="skcard-ico">🔒</div><div class="skcard-n">Digital Forensics</div><div class="sk-bars"><div class="sk-bar f"></div><div class="sk-bar f"></div><div class="sk-bar f"></div><div class="sk-bar f"></div><div class="sk-bar"></div></div><div class="skcard-d">Digital evidence analysis using professional forensic tool suites.</div></div>
-            <div class="skcard" data-label="IR"><div class="skcard-ico">🛡️</div><div class="skcard-n">Incident Response</div><div class="sk-bars"><div class="sk-bar f"></div><div class="sk-bar f"></div><div class="sk-bar f"></div><div class="sk-bar"></div><div class="sk-bar"></div></div><div class="skcard-d">Security incident handling, breach methodology analysis, and triage.</div></div>
-            <div class="skcard" data-label="IOT"><div class="skcard-ico">📡</div><div class="skcard-n">IoT Security</div><div class="sk-bars"><div class="sk-bar f"></div><div class="sk-bar f"></div><div class="sk-bar f"></div><div class="sk-bar"></div><div class="sk-bar"></div></div><div class="skcard-d">Advanced IoT protocols, device security, and network protection.</div></div>
+            <div class="skcard" data-label="FOR">
+              <div class="skcard-ico">🔒</div>
+              <div class="skcard-n">Digital Forensics</div>
+              <div class="sk-bars">
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+                <div class="sk-bar"></div>
+              </div>
+              <div class="skcard-d">Digital evidence analysis using professional forensic tool suites.</div>
+            </div>
+            <div class="skcard" data-label="IR">
+              <div class="skcard-ico">🛡️</div>
+              <div class="skcard-n">Incident Response</div>
+              <div class="sk-bars">
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+                <div class="sk-bar"></div>
+                <div class="sk-bar"></div>
+              </div>
+              <div class="skcard-d">Security incident handling, breach methodology analysis, and triage.</div>
+            </div>
+            <div class="skcard" data-label="IOT">
+              <div class="skcard-ico">📡</div>
+              <div class="skcard-n">IoT Security</div>
+              <div class="sk-bars">
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+                <div class="sk-bar f"></div>
+                <div class="sk-bar"></div>
+                <div class="sk-bar"></div>
+              </div>
+              <div class="skcard-d">Advanced IoT protocols, device security, and network protection.</div>
+            </div>
           </div>
         </div>
       </div>
@@ -273,16 +511,19 @@
 
     <!-- ════════════════════ EXPERIENCE ════════════════════ -->
     <section id="experience" class="sec">
-      <div class="sec-tag reveal">Experience &amp; Research</div>
-      <h2 class="sec-h reveal">Where I've <em>worked</em></h2>
+      <div class="sec-tag">Experience &amp; Research</div>
+      <h2 class="sec-h">Where I've <em>worked</em></h2>
       <div class="exp-grid">
-        <div class="expcard reveal" data-label="VIEW">
+        <div class="expcard" data-label="VIEW">
           <div class="exp-stripe"></div>
           <div class="exp-type">Professional Experience</div>
           <div class="exp-role">Student Trainee</div>
           <div class="exp-org">Digital Forensics &amp; Incident Response</div>
           <div class="exp-period">May 2024 — August 2024 · 4 months</div>
-          <div class="exp-body">Acquired in-depth knowledge in digital security, focusing on advanced breaching methodologies and robust data protection strategies. Proficiently utilised a suite of forensic tools for digital evidence analysis, working through real incident response workflows and building hands-on expertise in data protection and breach investigation techniques.</div>
+          <div class="exp-body">Acquired in-depth knowledge in digital security, focusing on advanced breaching
+            methodologies and robust data protection strategies. Proficiently utilised a suite of forensic tools for
+            digital evidence analysis, working through real incident response workflows and building hands-on expertise
+            in data protection and breach investigation techniques.</div>
           <div class="exp-chips">
             <span class="chip">Forensic Tools</span>
             <span class="chip">Evidence Analysis</span>
@@ -291,13 +532,16 @@
             <span class="chip">Breach Methodology</span>
           </div>
         </div>
-        <div class="expcard reveal" style="transition-delay:.15s" data-label="READ">
+        <div class="expcard" style="transition-delay:.15s" data-label="READ">
           <div class="exp-stripe exp-stripe-gold"></div>
           <div class="exp-type exp-type-gold">Research Publication</div>
           <div class="exp-role">Published Researcher</div>
           <div class="exp-org exp-org-gold">IJIRT — International Journal</div>
           <div class="exp-period">Published December 7, 2025 · Paper ID: 189070</div>
-          <div class="exp-body">Co-authored and published a research paper titled <em>"Human Emotion Recognition Using Recent Technology"</em> in the International Journal of Innovative Research &amp; Technology. The paper covers ML-based facial emotion detection leveraging CNN architectures, image preprocessing pipelines, and multi-class classification of emotional states.</div>
+          <div class="exp-body">Co-authored and published a research paper titled <em>"Human Emotion Recognition Using
+              Recent Technology"</em> in the International Journal of Innovative Research &amp; Technology. The paper
+            covers ML-based facial emotion detection leveraging CNN architectures, image preprocessing pipelines, and
+            multi-class classification of emotional states.</div>
           <div class="exp-chips">
             <span class="chip chip-g">IJIRT 189070</span>
             <span class="chip chip-g">Dec 2025</span>
@@ -310,15 +554,19 @@
 
     <!-- ════════════════════ PROJECTS ════════════════════ -->
     <section id="projects" class="sec">
-      <div class="sec-tag reveal">Featured Projects</div>
-      <h2 class="sec-h reveal">Things I've <em>built</em></h2>
-      <div class="proj-wrap reveal" style="transition-delay:.15s">
+      <div class="sec-tag">Featured Projects</div>
+      <h2 class="sec-h">Things I've <em>built</em></h2>
+      <div class="proj-wrap" style="transition-delay:.15s">
         <div class="proj-card" data-label="EXPLORE">
           <div class="proj-info">
             <div class="proj-num">Project 01</div>
             <h3 class="proj-title">Human Emotion<br><span>Recognition System</span></h3>
-            <p class="proj-desc">A machine learning–based system that identifies human emotions from facial expressions in image data. Implements a complete pipeline: data preprocessing → feature extraction → CNN classification to detect happiness, sadness, anger, and surprise.</p>
-            <p class="proj-desc proj-desc-sm">Demonstrates deep expertise in computer vision and applied ML — directly tied to the published IJIRT research paper and real-world applications in healthcare, HCI, and affective computing.</p>
+            <p class="proj-desc">A machine learning–based system that identifies human emotions from facial expressions
+              in image data. Implements a complete pipeline: data preprocessing → feature extraction → CNN
+              classification to detect happiness, sadness, anger, and surprise.</p>
+            <p class="proj-desc proj-desc-sm">Demonstrates deep expertise in computer vision and applied ML — directly
+              tied to the published IJIRT research paper and real-world applications in healthcare, HCI, and affective
+              computing.</p>
             <div class="proj-stack">
               <span class="ptag">Python</span>
               <span class="ptag">OpenCV</span>
@@ -340,23 +588,34 @@
 
     <!-- ════════════════════ CERTIFICATIONS ════════════════════ -->
     <section id="certs" class="sec">
-      <div class="sec-tag reveal">Certifications</div>
-      <h2 class="sec-h reveal">Credentials &amp; <em>Achievements</em></h2>
+      <div class="sec-tag">Certifications</div>
+      <h2 class="sec-h">Credentials &amp; <em>Achievements</em></h2>
       <div class="certs-grid">
-        <div class="certcard reveal" data-label="VIEW">
+        <div class="certcard" data-label="VIEW">
           <div class="cert-icon-box">📡</div>
           <div>
             <div class="cert-t">Advanced Internet of Things (IoT)</div>
             <div class="cert-by">Technoledge</div>
-            <div class="cert-d">Certificate of completion covering advanced IoT concepts, device communication protocols, sensor integration, and practical IoT security applications.</div>
+            <div class="cert-d">Certificate of completion covering advanced IoT concepts, device communication
+              protocols, sensor integration, and practical IoT security applications.</div>
           </div>
         </div>
-        <div class="certcard reveal" style="transition-delay:.15s" data-label="READ">
+        <div class="certcard" style="transition-delay:.15s" data-label="READ">
           <div class="cert-icon-box">📝</div>
           <div>
             <div class="cert-t">Research Paper Publication</div>
             <div class="cert-by">IJIRT · Paper ID 189070 · December 7, 2025</div>
-            <div class="cert-d">Published research on Human Emotion Recognition Using Recent Technology — demonstrating advanced ML in computer vision and affective computing.</div>
+            <div class="cert-d">Published research on Human Emotion Recognition Using Recent Technology — demonstrating
+              advanced ML in computer vision and affective computing.</div>
+          </div>
+        </div>
+        <div class="certcard" style="transition-delay:.3s" data-label="VIEW">
+          <div class="cert-icon-box">📊</div>
+          <div>
+            <div class="cert-t">Google Data Analytics Professional Certificate</div>
+            <div class="cert-by">Coursera · Google Career Certificates · March 29, 2026</div>
+            <div class="cert-d">Completed a comprehensive 9-course program covering data analysis, SQL, Tableau, and
+              Python for data-driven decision-making and business intelligence.</div>
           </div>
         </div>
       </div>
@@ -364,56 +623,81 @@
 
     <!-- ════════════════════ CONTACT ════════════════════ -->
     <section id="contact">
-      <div class="contact-l reveal">
+      <div class="contact-l">
         <div class="sec-tag">Let's Connect</div>
         <div class="contact-big">Say<br><span>Hello.</span></div>
-        <p class="contact-sub">Open to internships, collaborations, and interesting conversations about tech, ML, and building things that matter.</p>
+        <p class="contact-sub">Open to internships, collaborations, and interesting conversations about tech, ML, and
+          building things that matter.</p>
         <div class="contact-social-row">
           <a href="https://instagram.com/anuragsiy" target="_blank" class="social-pill">
-            <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            <svg viewBox="0 0 24 24">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+              <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" />
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+            </svg>
             @anuragsiy
           </a>
           <a href="https://github.com/Anuragsiy-1" target="_blank" class="social-pill">
-            <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22" />
+            </svg>
             Anuragsiy-1
           </a>
         </div>
       </div>
-      <div class="contact-links reveal" style="transition-delay:.2s">
+      <div class="contact-links" style="transition-delay:.2s">
         <a href="mailto:iamanuragsiy@gmail.com" class="clink" data-label="EMAIL">
           <div class="clink-icon-wrap">✉️</div>
-          <div class="clink-body"><div class="clink-lbl">Email</div><div class="clink-val">iamanuragsiy@gmail.com</div></div>
+          <div class="clink-body">
+            <div class="clink-lbl">Email</div>
+            <div class="clink-val">iamanuragsiy@gmail.com</div>
+          </div>
           <span class="clink-arr">→</span>
         </a>
-        <a href="https://www.linkedin.com/in/anurag-yadav-87755a275" target="_blank" class="clink" data-label="LINKEDIN">
+        <a href="https://www.linkedin.com/in/anurag-yadav-87755a275" target="_blank" class="clink"
+          data-label="LINKEDIN">
           <div class="clink-icon-wrap">💼</div>
-          <div class="clink-body"><div class="clink-lbl">LinkedIn</div><div class="clink-val">anurag-yadav-87755a275</div></div>
+          <div class="clink-body">
+            <div class="clink-lbl">LinkedIn</div>
+            <div class="clink-val">anurag-yadav-87755a275</div>
+          </div>
           <span class="clink-arr">→</span>
         </a>
         <a href="https://instagram.com/anuragsiy" target="_blank" class="clink" data-label="INSTAGRAM">
           <div class="clink-icon-wrap">📸</div>
-          <div class="clink-body"><div class="clink-lbl">Instagram</div><div class="clink-val">@anuragsiy</div></div>
+          <div class="clink-body">
+            <div class="clink-lbl">Instagram</div>
+            <div class="clink-val">@anuragsiy</div>
+          </div>
           <span class="clink-arr">→</span>
         </a>
         <a href="https://github.com/Anuragsiy-1" target="_blank" class="clink" data-label="GITHUB">
           <div class="clink-icon-wrap">🐙</div>
-          <div class="clink-body"><div class="clink-lbl">GitHub</div><div class="clink-val">Anuragsiy-1</div></div>
+          <div class="clink-body">
+            <div class="clink-lbl">GitHub</div>
+            <div class="clink-val">Anuragsiy-1</div>
+          </div>
           <span class="clink-arr">→</span>
         </a>
         <a href="tel:+918127782393" class="clink" data-label="CALL">
           <div class="clink-icon-wrap">📱</div>
-          <div class="clink-body"><div class="clink-lbl">Phone</div><div class="clink-val">+91 81277 82393</div></div>
+          <div class="clink-body">
+            <div class="clink-lbl">Phone</div>
+            <div class="clink-val">+91 81277 82393</div>
+          </div>
           <span class="clink-arr">→</span>
         </a>
       </div>
     </section>
 
     <footer>
-      <div class="ft-l">© 2025 Anurag Yadav · IIMT College of Engineering · Greater Noida</div>
-      <div class="ft-r">AY.DEV ✦</div>
+      <div class="ft-l">© 2026 Anurag Yadav · IIMT College of Engineering · Greater Noida</div>
+      <div class="ft-r">AY.DEV </div>
     </footer>
   </div><!-- /wrap -->
 
   <script src="main.js"></script>
 </body>
+
 </html>
