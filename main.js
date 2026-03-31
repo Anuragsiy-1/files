@@ -133,6 +133,99 @@
 
 
 /* ═══════════════════════════════════════════════
+   5b. EXPENSE CHART CANVAS (Project 02 Preview)
+═══════════════════════════════════════════════ */
+(function initExpenseChart() {
+  const ec = document.getElementById('expense-canvas');
+  if (!ec) return;
+  const ex = ec.getContext('2d');
+
+  function sizeEc() {
+    ec.width  = ec.offsetWidth;
+    ec.height = ec.offsetHeight;
+  }
+  sizeEc();
+  window.addEventListener('resize', sizeEc);
+
+  const categories = [
+    { label: 'Food', target: 0.7, current: 0, color: '124,140,248' },
+    { label: 'Travel', target: 0.5, current: 0, color: '167,139,250' },
+    { label: 'Utils', target: 0.85, current: 0, color: '192,132,252' },
+    { label: 'Rent', target: 0.95, current: 0, color: '99,102,241' },
+    { label: 'Health', target: 0.4, current: 0, color: '129,140,248' },
+    { label: 'Other', target: 0.6, current: 0, color: '147,130,250' },
+  ];
+
+  let time = 0;
+
+  function drawExpenseChart() {
+    if (!ec.width || !ec.height) { requestAnimationFrame(drawExpenseChart); return; }
+    ex.clearRect(0, 0, ec.width, ec.height);
+    const W = ec.width, H = ec.height;
+    const barCount = categories.length;
+    const padding = 30;
+    const barWidth = (W - padding * 2) / (barCount * 2);
+    const maxH = H - padding * 3;
+
+    time += 0.01;
+
+    // Draw subtle grid lines
+    ex.strokeStyle = 'rgba(124,140,248,0.04)';
+    ex.lineWidth = 0.5;
+    for (let i = 0; i <= 4; i++) {
+      const y = padding + (maxH / 4) * i;
+      ex.beginPath();
+      ex.moveTo(padding, y);
+      ex.lineTo(W - padding, y);
+      ex.stroke();
+    }
+
+    // Animate bars
+    categories.forEach((cat, i) => {
+      // Ease toward target with subtle oscillation
+      const wave = Math.sin(time * 2 + i * 0.8) * 0.04;
+      cat.current += (cat.target + wave - cat.current) * 0.03;
+
+      const x = padding + i * (barWidth * 2) + barWidth * 0.5;
+      const barH = cat.current * maxH;
+      const y = padding + maxH - barH;
+
+      // Bar glow
+      const grad = ex.createLinearGradient(x, y, x, y + barH);
+      grad.addColorStop(0, `rgba(${cat.color},0.8)`);
+      grad.addColorStop(1, `rgba(${cat.color},0.2)`);
+
+      // Shadow glow
+      ex.save();
+      ex.shadowColor = `rgba(${cat.color},0.3)`;
+      ex.shadowBlur = 12;
+      ex.fillStyle = grad;
+      ex.beginPath();
+      ex.roundRect(x, y, barWidth, barH, [4, 4, 0, 0]);
+      ex.fill();
+      ex.restore();
+
+      // Label
+      ex.fillStyle = `rgba(${cat.color},0.5)`;
+      ex.font = '9px Lato, sans-serif';
+      ex.textAlign = 'center';
+      ex.fillText(cat.label, x + barWidth / 2, padding + maxH + 16);
+    });
+
+    // Animated floating total
+    const total = Math.floor(1200 + Math.sin(time * 3) * 150);
+    ex.fillStyle = 'rgba(124,140,248,0.6)';
+    ex.font = 'bold 13px Lato, sans-serif';
+    ex.textAlign = 'right';
+    ex.fillText('₹' + total.toLocaleString(), W - padding, padding - 8);
+
+    requestAnimationFrame(drawExpenseChart);
+  }
+  drawExpenseChart();
+})();
+
+
+/* ═══════════════════════════════════════════════
    6. SKILL TABS
 ═══════════════════════════════════════════════ */
 (function initSkillTabs() {
